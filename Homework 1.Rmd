@@ -1,0 +1,60 @@
+---
+title: "Homework 1 - CARTER FORNWALT"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+To help you explore its functionality, R comes with a number of datasets built in and ready for use. To be sure, take a look in the File, Plots, and Packages pane for the `datasets` package. If it is missing, you can use `install.packages(datasets)` to obtain it.
+
+### Problem 1 (5 points): 
+
+Provide a five-number summary of each of the numerical variables in the `faithful` dataset.
+Prove the variables you summarize are numerical variables.
+
+```{r}
+attach(faithful)
+str(faithful)
+summary(faithful)
+
+#This output shows both that the variables are numerical (num) and it shows the five number summary of both variables.
+```
+
+
+### Problem 2 (5 points):
+
+Create a histogram of the waiting times between eruptions of Old Faithful.
+In what quartile are the most eruptions?
+```{r}
+hist(waiting, breaks =60, main="Eruptions", col = "lightblue", xlab="Time Waiting in Mins", labels=T, xlim=c(40,100))
+abline(v=mean(waiting), col = "Red", lwd = 3)
+abline(v=82, col = "red", lwd = 2)
+abline(v=58, col = "red", lwd = 2)
+binr::bins.quantiles(waiting,4,4)
+#The Third quartile has the most eruptions. This can clearly be seen by locating the bars between 71 and 82.
+```
+
+
+### Problem 3 (5 points):
+
+Build a frequency distribution representing the wait times between eruptions of Old Faithful.
+* Each interval or bin should be 10 minutes long
+* Don't have a bunch of empty intervals on either end
+* Orient the table so the bins and values in them line up vertically.
+```{r}
+bins <- seq(43,96, by=10)
+Faithful <- cut(waiting, bins)
+#table(Faithful)
+transform(table(Faithful))
+```
+
+
+### Problem 4 (5 points):
+
+Do the histogram of waiting times and the frequency distribution tell the same story about wait times? Why or why not? What would you do differently to align them better?
+```{r}
+#This histogram and frequency distribution tell the same story when you compare the two figures. The largest bars of the histogram occur between 71 and 82. While the frequency table shows that highest frequency occurs between 73 and 83. This similarity proves the data is consistent.
+#To better align the data, you can create a frequency table with more precise ranges. IE, set the difference between the ranges to be cut into four quartile ranges, rather than the 5 bins it divides into currently.However, the ranges are so similar that dividing further may prove to be a small benefit, as the data is conclusive.
+```
+
+
